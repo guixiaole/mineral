@@ -14,11 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1088, 813)
+        MainWindow.resize(1920, 1080)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(40, 50, 161, 71))
+        self.pushButton.setGeometry(QtCore.QRect(40, 50, 171, 61))
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(250, 50, 171, 61))
@@ -26,6 +26,10 @@ class Ui_MainWindow(object):
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(460, 50, 171, 61))
         self.pushButton_3.setObjectName("pushButton_3")
+        self.widget = QtWidgets.QLabel(self.centralwidget)
+        self.widget.setGeometry(QtCore.QRect(0, 300, 1080, 720))
+        self.widget.setText("")
+        self.widget.setObjectName("widget")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 26))
@@ -35,8 +39,9 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.pushButton.clicked.connect(MainWindow.loadVideoFile)
-        self.pushButton_2.clicked.connect(MainWindow.DownloadVideo)
         self.pushButton_2.clicked.connect(MainWindow.detectSimilarVideo)
+        self.pushButton_3.clicked.connect(MainWindow.detectCokeVideo)
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 

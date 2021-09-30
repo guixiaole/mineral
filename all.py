@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 from scipy.signal import convolve2d
 import cv2 as cv
-ort_session = ort.InferenceSession('vgg.onnx')
+
 def matlab_style_gauss2D(shape=(3,3),sigma=0.5):
     m,n = [(ss-1.)/2. for ss in shape]
     y,x = np.ogrid[-m:m+1,-n:n+1]
@@ -42,19 +42,17 @@ def result(image1,image2,wsize,isSobel,size=None):
     image1 = Image.fromarray(cv.cvtColor(image1, cv.COLOR_BGR2RGB))
     image2 = Image.fromarray(cv.cvtColor(image2, cv.COLOR_BGR2RGB))
     return compute_ssim(np.array(image1.resize((8, 8), Image.ANTIALIAS).convert('L'), 'f'),np.array(image2.resize((8, 8), Image.ANTIALIAS).convert('L'), 'f'),win_size=wsize)
-def detectionCoke(img):
-    img=cv.resize(img,dsize=(224,224))
-    img=np.divide(img,255)
-    img=img[np.newaxis,:].transpose(0,3,1,2)
-    _,outputs = ort_session.run(None, {'input': img.astype(np.float32)})
-    # class_names=['Coke','NoCoke']
-    indices=np.argmax(outputs,1)
-    # _, indices = torch.max(outputs, 1)
-    # percentage = torch.nn.functional.softmax(outputs, dim=1)[0] * 100
-    # perc = percentage[int(indices)].item()
-    return indices[0]^1
+# def detectionCoke(img):
+#     img=cv.resize(img,dsize=(224,224))
+#     img=np.divide(img,255)
+#     img=img[np.newaxis,:].transpose(0,3,1,2)
+#     _,outputs = ort_session.run(None, {'input': img.astype(np.float32)})
+#     # class_names=['Coke','NoCoke']
+#     indices=np.argmax(outputs,1)
+#     # _, indices = torch.max(outputs, 1)
+#     # percentage = torch.nn.functional.softmax(outputs, dim=1)[0] * 100
+#     # perc = percentage[int(indices)].item()
+#     return indices[0]^1
 def detectionSSIM(prefram,frame):
-    all_total = result(prefram, frame, 3, False) * result(prefram, frame, 3, True, 3) * result(prefram, frame, 3, True,7)
+    all_total = result(prefram, frame, 3, False) * result(prefram, frame, 3, True, 5)
     return all_total
-if __name__ == '__main__':
-    print(1)
